@@ -35,7 +35,8 @@ def xml_parse(xml_path):
 
     return tree, height, width, np.array(gtboxes)#array()函数生成矩阵时数据只能为列表形式
 
-def rotate(img, xml, degree, save_img_path, save_xml_path, filename, format='.png'):
+def rotate(img, xml, degree, save_img_path, save_xml_path, filename, format='.png',name = None):
+
 
     image = np.array(img)
     tree, height, width, gtboxes = xml_parse(xml)#%调用xml_parse函数
@@ -75,13 +76,13 @@ def rotate(img, xml, degree, save_img_path, save_xml_path, filename, format='.pn
                         son_item.text = str(sbox[idx])
             del gtboxes_copy[0]
     image = Image.fromarray(image)#使用PIL打开图片，并将其分离为RGB三个通道
-    imgfilename = os.path.join(save_img_path, filename+format)
+    imgfilename = os.path.join(save_img_path, name+str(degree)+format)
 
     image.save(imgfilename)
-    xmlfilename = os.path.join(save_xml_path, filename+'.xml')
+    xmlfilename = os.path.join(save_xml_path, name+str(degree)+'.xml')
     tree.write(xmlfilename)
 
-def flip(img, xml, type, save_img_path, save_xml_path, filename, format='.png'):
+def flip(img, xml, type, save_img_path, save_xml_path, filename, format='.png', name = None):
 
     tree, height, width, gtboxes = xml_parse(xml)
     gtboxes_copy = []
@@ -114,9 +115,9 @@ def flip(img, xml, type, save_img_path, save_xml_path, filename, format='.png'):
                     for idx,son_item in enumerate(son_root):
                         son_item.text = str(sbox[idx])
             del gtboxes_copy[0]
-    imgfilename = os.path.join(save_img_path, filename+format)
+    imgfilename = os.path.join(save_img_path, name+filename+format)
     img.save(imgfilename)
-    xmlfilename = os.path.join(save_xml_path, filename+'.xml')
+    xmlfilename = os.path.join(save_xml_path, name+filename+'.xml')
     tree.write(xmlfilename)
 
 if __name__=='__main__':
@@ -127,8 +128,7 @@ if __name__=='__main__':
     img_path, xml_path = r'E:\2_Tang\work\Recognize\weibolu\20210708imgseg\temp11\img', r'E:\2_Tang\work\Recognize\weibolu\20210708imgseg\temp11\xml'
     save_img_path, save_xml_path, = r'E:\2_Tang\work\Recognize\weibolu\20210708imgseg\temp11\img_save', r'E:\2_Tang\work\Recognize\weibolu\20210708imgseg\temp11\xml_save'
     #print(save_img_path)
-    counter = 1
-
+    counter = 2
     for file in os.listdir(img_path):
         filename = file.split('.')[0]
         format = '.'+file.split('.')[-1]
@@ -144,12 +144,15 @@ if __name__=='__main__':
 
         image = Image.open(os.path.join(img_path, file))
         xml = os.path.join(xml_path, filename+'.xml')
+        print(filename)
+        rotate(image, xml, 90, save_img_path, save_xml_path, standardize(counter+1), format,filename)
+        rotate(image, xml, 180, save_img_path, save_xml_path, standardize(counter+1), format,filename)
+        rotate(image, xml, 270, save_img_path, save_xml_path, standardize(counter+1), format,filename)
+        #rotate(image, xml, 90, filename, save_img_path, save_xml_path, standardize(counter+1), format) #
+        #rotate(image, xml, 180, filename, save_img_path, save_xml_path, standardize(counter+1), format) #
+        #rotate(image, xml, 270, filename, save_img_path, save_xml_path, standardize(counter+1), format)#
 
-        rotate(image, xml, 90, save_img_path, save_xml_path, standardize(counter+1), format)
-        rotate(image, xml, 180, save_img_path, save_xml_path, standardize(counter+2), format)
-        rotate(image, xml, 270, save_img_path, save_xml_path, standardize(counter+3), format)
+        flip(image, xml, 'Up_Bottom', save_img_path, save_xml_path, standardize(counter+2), format,filename)
+        flip(image, xml, 'Left_Right', save_img_path, save_xml_path, standardize(counter+2), format,filename)
 
-        flip(image, xml, 'Up_Bottom', save_img_path, save_xml_path, standardize(counter+4), format)
-        flip(image, xml, 'Left_Right', save_img_path, save_xml_path, standardize(counter+5), format)
-
-        counter += 1
+        counter += 2
