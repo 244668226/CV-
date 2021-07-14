@@ -94,7 +94,7 @@ def ImageAugument(image_path, label_path):
 
         # 亮度增强
         enh_bri = ImageEnhance.Brightness(image)
-        brightness = 1.0
+        brightness = 1.3
         image_brightened = enh_bri.enhance(brightness)
         image_brightened.save(prefix + file[0:-4] + 'lightup' + '.jpg')
         shutil.copy(label_name, os.path.join(label_path, label_name.replace('.xml', 'lightup.xml')))
