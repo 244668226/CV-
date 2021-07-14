@@ -200,7 +200,7 @@ def yolov3(img):
             addxml(x,y,w,h,text,imgPath)
     cv.imshow('detected image', img)
     cv.waitKey(0)
-#yolov3(img)
+
 
 image_path = 'C:/Users/Admin/Desktop/ceshi'
 files = os.listdir(image_path)  # 得到文件夹下的所有文件名称
