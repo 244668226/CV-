@@ -62,13 +62,13 @@ def chuanjianxml(imgpath,h,w,c):
     # 创建elementtree对象，写文件
     indent(a, 0)
     tree = ET.ElementTree(a)
-    dir = 'C:/Users/Admin/Desktop/ceshixml/' + str2.split('.')[0] + '.xml'
+    dir = r'G:\Work\Meiling\refrigerator\20220514\xml/' + str2.split('.')[0] + '.xml'
     tree.write(dir, encoding="utf-8")
 
 def addxml(x,y,w,h,text,imgpath):
     str1 = imgpath.split('/')
     str2 = str1[len(str1) - 1]
-    str3 = 'C:/Users/Admin/Desktop/ceshixml/' + str2.split('.')[0]+'.xml'
+    str3 = r'G:\Work\Meiling\refrigerator\20220514\xml/' + str2.split('.')[0]+'.xml'
     print(str3)
     updateTree = ET.parse(str3)
     root = updateTree.getroot()
@@ -200,9 +200,9 @@ def yolov3(img):
             addxml(x,y,w,h,text,imgPath)
     cv.imshow('detected image', img)
     cv.waitKey(0)
+#yolov3(img)
 
-
-image_path = 'C:/Users/Admin/Desktop/ceshi'
+image_path = r'G:\Work\Meiling\refrigerator\20220514\img'
 files = os.listdir(image_path)  # 得到文件夹下的所有文件名称
 # 遍历文件夹
 prefix = image_path + '/'
