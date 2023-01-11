@@ -1,1 +1,5 @@
-发
+以Tensorrt8.0 + CUDA10.2 + cudnn8.4.1 加速YOLOV7为例
+
+1. 如何安装tensorrt：
+ 在https://github.com/NVIDIA/TensorRT选择8.0版本，找到下载链接下载解压包。将解压包内lib的dll复制到cuda的bin文件夹内，将lib文件复制到cuda的lib的x64
+   内。
