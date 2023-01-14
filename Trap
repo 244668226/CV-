@@ -1,0 +1,1 @@
+1. 导入torch和pytorch注意两者的区别，再pytorch的官网安装的一定是pytorch，torch的安装是在：https://download.pytorch.org/whl/torch/
